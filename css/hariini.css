@@ -1,0 +1,265 @@
+/* Greeting */
+.user-greeting {
+  padding: 5px 20px 15px 20px;
+}
+
+.date-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.user-greeting h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-title);
+  margin-top: 2px;
+}
+
+/* Progress Box Hijau Ceria */
+.progress-card {
+  margin: 0 20px 18px 20px;
+  padding: 16px 18px;
+  background-color: #d1fae5;
+  border-radius: 18px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.progress-percent {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.progress-detail {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #a7f3d0;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #10b981;
+  border-radius: 50px;
+  transition: width 0.3s ease;
+}
+
+/* Chips Kategori */
+/* Chips Kategori (Bisa di-scroll ke samping) */
+.categories-section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.chips-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* Mengaktifkan scroll horizontal */
+  white-space: nowrap;
+  padding-bottom: 4px; /* Menjaga batas bawah tombol tidak terpotong */
+  -ms-overflow-style: none; /* Menyembunyikan batang scroll di IE/Edge */
+  scrollbar-width: none; /* Menyembunyikan batang scroll di Firefox */
+}
+
+/* Menyembunyikan batang scroll di Chrome & Safari agar tampilan bersih */
+.chips-container::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  flex-shrink: 0; /* Mencegah tombol mengkerut saat kategori bertambah */
+}
+
+.chip.active {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+/* List Tugas & Cards */
+.task-section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.section-header h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-card {
+  background: #ffffff;
+  padding: 14px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+}
+
+.task-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: #10b981;
+  cursor: pointer;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.task-card.completed .task-title {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+/* Badges Tag Kategori */
+.tag {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.tag-tugas { background-color: #e0f2fe; color: #008dd3; }
+.tag-hobby { background-color: #fef3c7; color: #c0a300; }
+.tag-latihan { background-color: #fee2e2; color: #dc2626; }
+.tag-lainnya { background-color: #f1f5f9; color: #3a3b3c; }
+
+/* Badges Level Prioritas */
+.tag-santai { background-color: #dcfce7; color: #01ff09; }
+.tag-sedang { background-color: #fef3c7; color: #c0a300; }
+.tag-penting { background-color: #fee2e2; color: #dc2626; }
+
+/* Menu Titik Tiga */
+.task-menu-container {
+  position: relative;
+}
+
+.task-menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  line-height: 1;
+}
+
+.task-menu-btn:hover {
+  background-color: #f1f5f9;
+  color: #334155;
+}
+
+/* Dropdown Edit & Hapus */
+.task-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  min-width: 110px;
+  overflow: hidden;
+}
+
+.task-dropdown.show {
+  display: block;
+}
+
+.task-dropdown-item {
+  width: 100%;
+  padding: 10px 14px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-dropdown-item.edit-btn {
+  color: #0284c7;
+}
+
+.task-dropdown-item.edit-btn:hover {
+  background-color: #f0f9ff;
+}
+
+.task-dropdown-item.delete-btn {
+  color: #dc2626;
+}
+
+.task-dropdown-item.delete-btn:hover {
+  background-color: #fef2f2;
+}
+
+.dropdown-icon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

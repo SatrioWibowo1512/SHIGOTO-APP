@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHIGOTO</title>
+  
+  <!-- Font Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- File CSS -->
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/hariini.css">
+  <link rel="stylesheet" href="css/tambahtugas.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- 1. HEADER BAR (DIAM & PERSISTEN) -->
+    <header class="header-bar">
+      <div class="logo">
+        <img src="assets/logo.png" class="logo-img" alt="Logo SHIGOTO">
+        <span class="logo-text">SHIGOTO</span>
+      </div>
+      <span class="page-badge" id="header-badge">HARI INI</span>
+    </header>
+
+    <!-- CONTAINER KONTEN YANG BISA GESER -->
+    <div class="views-wrapper">
+      
+      <!-- VIEW 1: HARI INI -->
+      <main id="view-hariini" class="page-view active">
+        <!-- USER GREETING -->
+        <section class="user-greeting">
+          <p class="date-text" id="current-date"></p>
+          <h2>Halo, Mau lakuin apa hari ini?</h2>
+        </section>
+
+        <!-- PROGRESS CARD -->
+        <section class="progress-card">
+          <div class="progress-info">
+            <span class="progress-percent">0%</span>
+            <span class="progress-detail">0 dari 0 tugas selesai</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: 0%;"></div>
+          </div>
+        </section>
+
+        <!-- FILTER CATEGORY CHIPS -->
+        <section class="categories-section">
+          <div class="chips-container">
+            <button class="chip active">Semua</button>
+            <button class="chip">Tugas</button>
+            <button class="chip">Hobby</button>
+            <button class="chip">Latihan</button>
+            <button class="chip">Lainnya</button>
+          </div>
+        </section>
+
+        <!-- DAFTAR TUGAS FOKUS -->
+        <section class="task-section">
+          <div class="section-header">
+            <h3>Fokus Hari Ini</h3>
+          </div>
+          <div class="task-list" id="active-tasks-list"></div>
+        </section>
+
+        <!-- DAFTAR TUGAS SELESAI -->
+        <section class="task-section">
+          <div class="section-header">
+            <h3>Sudah Diselesaikan</h3>
+          </div>
+          <div class="task-list" id="completed-tasks-list"></div>
+        </section>
+      </main>
+
+      <!-- VIEW 2: TAMBAH / EDIT TUGAS -->
+      <main id="view-tambah" class="page-view">
+        <form id="task-form" class="form-container">
+          <div class="form-group">
+            <label for="task-title">Judul Tugas</label>
+            <input type="text" id="task-title" placeholder="Contoh: Belajar JavaScript" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-category">Kategori</label>
+            <select id="task-category" required>
+              <option value="Tugas">Tugas</option>
+              <option value="Hobby">Hobby</option>
+              <option value="Latihan">Latihan</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="task-priority">Tingkat Prioritas</label>
+            <select id="task-priority" required>
+              <option value="Santai">Santai</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Penting">Penting</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="task-time">Waktu Selesai</label>
+            <input type="time" id="task-time" required>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">Tambah Tugas</button>
+        </form>
+      </main>
+
+      <!-- VIEW 3: TEMPLATE -->
+      <main id="view-template" class="page-view">
+        <div style="padding: 24px; text-align: center; color: #64748b;">
+          <h3>Halaman Template</h3>
+          <p>Fitur template tugas akan segera hadir!</p>
+        </div>
+      </main>
+
+      <!-- VIEW 4: ARSIP -->
+      <main id="view-arsip" class="page-view">
+        <div style="padding: 24px; text-align: center; color: #64748b;">
+          <h3>Halaman Arsip</h3>
+          <p>Daftar tugas yang telah diarsipkan.</p>
+        </div>
+      </main>
+
+    </div>
+
+    <!-- 2. BOTTOM NAVBAR (DIAM & PERSISTEN + KAPSUL HIJAU GLIDE) -->
+    <nav class="bottom-nav" data-active="0">
+      <!-- Kapsul Meluncur -->
+      <div class="nav-pill">
+        <div class="nav-pill-inner"></div>
+      </div>
+
+      <button class="nav-item active" data-target="view-hariini" data-index="0">
+        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        <span>Hari Ini</span>
+      </button>
+
+      <button class="nav-item" data-target="view-tambah" data-index="1">
+        <svg class="nav-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        <span>Tambah</span>
+      </button>
+
+      <button class="nav-item" data-target="view-template" data-index="2">
+        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+        <span>Template</span>
+      </button>
+
+      <button class="nav-item" data-target="view-arsip" data-index="3">
+        <svg class="nav-icon" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+        <span>Arsip</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Script Logika -->
+  <script src="js/storage.js"></script>
+  <script src="js/hariini.js"></script>
+  <script src="js/tambahtugas.js"></script>
+  <script src="js/router.js"></script>
+</body>
+</html>
