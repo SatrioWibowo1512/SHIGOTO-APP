@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SHIGOTO</title>
   
-  <!-- Font Nunito -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- File CSS -->
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/hariini.css">
+  <link rel="stylesheet" href="css/kalender.css">
   <link rel="stylesheet" href="css/tambahtugas.css">
 </head>
 <body>
 
   <div class="app-container">
 
-    <!-- 1. HEADER BAR (DIAM & PERSISTEN) -->
+    <!-- HEADER BAR -->
     <header class="header-bar">
       <div class="logo">
         <img src="assets/logo.png" class="logo-img" alt="Logo SHIGOTO">
@@ -28,18 +27,16 @@
       <span class="page-badge" id="header-badge">HARI INI</span>
     </header>
 
-    <!-- CONTAINER KONTEN YANG BISA GESER -->
+    <!-- VIEWS CONTAINER -->
     <div class="views-wrapper">
       
-      <!-- VIEW 1: HARI INI -->
+      <!-- VIEW 0: HARI INI -->
       <main id="view-hariini" class="page-view active">
-        <!-- USER GREETING -->
         <section class="user-greeting">
           <p class="date-text" id="current-date"></p>
           <h2>Halo, Mau lakuin apa hari ini?</h2>
         </section>
 
-        <!-- PROGRESS CARD -->
         <section class="progress-card">
           <div class="progress-info">
             <span class="progress-percent">0%</span>
@@ -50,7 +47,6 @@
           </div>
         </section>
 
-        <!-- FILTER CATEGORY CHIPS -->
         <section class="categories-section">
           <div class="chips-container">
             <button class="chip active">Semua</button>
@@ -61,10 +57,9 @@
           </div>
         </section>
 
-        <!-- DAFTAR TUGAS FOKUS -->
         <section class="task-section">
           <div class="section-header">
-            <h3>Tugas Hari Ini</h3>
+            <h3>Fokus Hari Ini</h3>
             <select id="priority-filter" class="priority-select">
               <option value="Semua">Semua Prioritas</option>
               <option value="Santai">Santai</option>
@@ -75,7 +70,6 @@
           <div class="task-list" id="active-tasks-list"></div>
         </section>
 
-        <!-- DAFTAR TUGAS SELESAI -->
         <section class="task-section">
           <div class="section-header">
             <h3>Sudah Diselesaikan</h3>
@@ -84,12 +78,39 @@
         </section>
       </main>
 
-      <!-- VIEW 2: TAMBAH / EDIT TUGAS -->
+      <!-- VIEW 1: KALENDER -->
+      <main id="view-kalender" class="page-view">
+        <section class="calendar-card">
+          <div class="calendar-header">
+            <button id="prev-month-btn" class="month-nav-btn">&lt;</button>
+            <h3 id="calendar-month-year">Oktober 2026</h3>
+            <button id="next-month-btn" class="month-nav-btn">&gt;</button>
+          </div>
+          <div class="calendar-weekdays">
+            <span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span>
+          </div>
+          <div id="calendar-days-grid" class="calendar-days-grid"></div>
+        </section>
+
+        <section class="task-section" style="margin-top: 20px;">
+          <div class="section-header">
+            <h3 id="selected-date-title">Tugas Tanggal Ini</h3>
+          </div>
+          <div class="task-list" id="calendar-tasks-list"></div>
+        </section>
+      </main>
+
+      <!-- VIEW 2: TAMBAH TUGAS -->
       <main id="view-tambah" class="page-view">
         <form id="task-form" class="form-container">
           <div class="form-group">
             <label for="task-title">Judul Tugas</label>
             <input type="text" id="task-title" placeholder="Contoh: Belajar JavaScript" required>
+          </div>
+
+          <div class="form-group">
+            <label for="task-date">Tanggal Tugas</label>
+            <input type="date" id="task-date" required>
           </div>
 
           <div class="form-group">
@@ -138,9 +159,8 @@
 
     </div>
 
-    <!-- 2. BOTTOM NAVBAR (DIAM & PERSISTEN + KAPSUL HIJAU GLIDE) -->
+    <!-- BOTTOM NAVBAR (5 MENU) -->
     <nav class="bottom-nav" data-active="0">
-      <!-- Kapsul Meluncur -->
       <div class="nav-pill">
         <div class="nav-pill-inner"></div>
       </div>
@@ -150,17 +170,22 @@
         <span>Hari Ini</span>
       </button>
 
-      <button class="nav-item" data-target="view-tambah" data-index="1">
+      <button class="nav-item" data-target="view-kalender" data-index="1">
+        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>Jadwal</span>
+      </button>
+
+      <button class="nav-item" data-target="view-tambah" data-index="2">
         <svg class="nav-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         <span>Tambah</span>
       </button>
 
-      <button class="nav-item" data-target="view-template" data-index="2">
+      <button class="nav-item" data-target="view-template" data-index="3">
         <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
         <span>Template</span>
       </button>
 
-      <button class="nav-item" data-target="view-arsip" data-index="3">
+      <button class="nav-item" data-target="view-arsip" data-index="4">
         <svg class="nav-icon" viewBox="0 0 24 24"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
         <span>Arsip</span>
       </button>
@@ -168,9 +193,9 @@
 
   </div>
 
-  <!-- Script Logika -->
   <script src="js/storage.js"></script>
   <script src="js/hariini.js"></script>
+  <script src="js/kalender.js"></script>
   <script src="js/tambahtugas.js"></script>
   <script src="js/router.js"></script>
 </body>

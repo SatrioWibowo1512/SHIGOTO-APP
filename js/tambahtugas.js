@@ -1,11 +1,19 @@
 window.editingTaskId = null;
 
 window.resetFormTambah = function() {
-  const taskForm = document.getElementById('task-form');
-  if (taskForm) taskForm.reset();
-  const submitBtn = document.getElementById('submit-btn');
-  if (submitBtn) submitBtn.textContent = 'Tambah Tugas';
-  window.editingTaskId = null;
+    const dateInput = document.getElementById('task-date');
+    if (dateInput) {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${year}-${month}-${day}`;
+    }
+    const taskForm = document.getElementById('task-form');
+    if (taskForm) taskForm.reset();
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) submitBtn.textContent = 'Tambah Tugas';
+    window.editingTaskId = null;
 };
 
 window.prepareEditTask = function(id) {
@@ -31,13 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeVal = document.getElementById('task-time').value;
 
     const taskData = {
-      id: window.editingTaskId || Date.now().toString(),
-      title: document.getElementById('task-title').value.trim(),
-      category: document.getElementById('task-category').value,
-      tag: document.getElementById('task-priority').value,
-      time: timeVal ? `${timeVal} WIB` : '',
-      completed: false,
-      archived: false
+        id: window.editingTaskId || Date.now().toString(),
+        title: document.getElementById('task-title').value.trim(),
+        date: document.getElementById('task-date').value || new Date().toISOString().split('T')[0],
+        category: document.getElementById('task-category').value,
+        tag: document.getElementById('task-priority').value,
+        time: timeVal ? `${timeVal} WIB` : '',
+        completed: false,
+        archived: false
     };
 
     Storage.saveTask(taskData);

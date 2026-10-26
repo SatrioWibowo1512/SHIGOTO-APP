@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const badgeMap = {
       'view-hariini': 'HARI INI',
+      'view-kalender': 'JADWAL',
       'view-tambah': isEdit ? 'EDIT' : 'FORM',
       'view-template': 'TEMPLATE',
       'view-arsip': 'ARSIP'
