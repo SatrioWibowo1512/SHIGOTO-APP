@@ -1,6 +1,7 @@
-let activeFilter = 'Semua';
+let activeFilter = 'Semua';      // Filter Kategori (Semua, Tugas, Hobby, dll)
+let activePriority = 'Semua';    // Filter Prioritas (Semua, Santai, Sedang, Penting)
 
-// 1. Format Tanggal Otomatis
+// 1. Format Tanggal
 function renderDate() {
   const today = new Date();
   const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -16,44 +17,56 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDate();
   renderApp();
   setupCategoryFilters();
+  setupPriorityFilter(); // Inisialisasi listener dropdown prioritas
 });
 
-function renderApp() {
+window.renderApp = function() {
   const tasks = Storage.getTasks().filter(t => !t.archived);
   updateProgress(tasks);
   renderTasks(tasks);
-}
+};
 
-// 2. Hitung & Update Progress Bar
+// 2. Update Progress Bar
 function updateProgress(tasks) {
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed).length;
   const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
 
-  document.querySelector('.progress-percent').textContent = `${percent}%`;
-  document.querySelector('.progress-detail').textContent = `${completed} dari ${total} tugas selesai`;
-  document.querySelector('.progress-bar-fill').style.width = `${percent}%`;
+  const percentEl = document.querySelector('.progress-percent');
+  const detailEl = document.querySelector('.progress-detail');
+  const fillEl = document.querySelector('.progress-bar-fill');
+
+  if (percentEl) percentEl.textContent = `${percent}%`;
+  if (detailEl) detailEl.textContent = `${completed} dari ${total} tugas selesai`;
+  if (fillEl) fillEl.style.width = `${percent}%`;
 }
 
-// 3. Render Daftar Tugas
+// 3. Render Daftar Tugas (Dua Filter: Kategori + Prioritas)
 function renderTasks(tasks) {
   const activeListContainer = document.getElementById('active-tasks-list');
   const completedListContainer = document.getElementById('completed-tasks-list');
 
-  const filtered = activeFilter === 'Semua' 
-    ? tasks 
-    : tasks.filter(t => t.category.toLowerCase() === activeFilter.toLowerCase());
+  if (!activeListContainer || !completedListContainer) return;
+
+  const filtered = tasks.filter(t => {
+    const matchCategory = activeFilter === 'Semua' || t.category.toLowerCase() === activeFilter.toLowerCase();
+    const matchPriority = activePriority === 'Semua' || (t.tag && t.tag.toLowerCase() === activePriority.toLowerCase());
+    return matchCategory && matchPriority;
+  });
 
   const activeTasks = filtered.filter(t => !t.completed);
   const completedTasks = filtered.filter(t => t.completed);
 
-  activeListContainer.innerHTML = activeTasks.map(createTaskHTML).join('');
+  activeListContainer.innerHTML = activeTasks.length > 0 
+    ? activeTasks.map(createTaskHTML).join('') 
+    : `<p style="font-size: 0.85rem; color: #94a3b8; padding: 8px 0;">Tidak ada tugas pada filter ini.</p>`;
+
   completedListContainer.innerHTML = completedTasks.map(createTaskHTML).join('');
 
   attachCheckboxEvents();
 }
 
-// 4. Template Kartu Tugas (Dengan Ikon SVG Line)
+// 4. Template Kartu Tugas
 function createTaskHTML(task) {
   return `
     <div class="task-card ${task.completed ? 'completed' : ''}">
@@ -85,9 +98,8 @@ function createTaskHTML(task) {
   `;
 }
 
-// 5. Event Listener Centang, Menu Dropdown, Edit & Hapus
+// 5. Event Listener Checkbox, Edit & Delete
 function attachCheckboxEvents() {
-  // Centang Tugas
   document.querySelectorAll('.task-checkbox').forEach(cb => {
     cb.addEventListener('change', (e) => {
       const id = e.target.getAttribute('data-id');
@@ -96,7 +108,6 @@ function attachCheckboxEvents() {
     });
   });
 
-  // Buka/Tutup Menu Titik Tiga
   document.querySelectorAll('.task-menu-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -107,20 +118,22 @@ function attachCheckboxEvents() {
         if (d !== dropdown) d.classList.remove('show');
       });
 
-      dropdown.classList.toggle('show');
+      if (dropdown) dropdown.classList.toggle('show');
     });
   });
 
-  // Tombol Edit
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.currentTarget.getAttribute('data-id');
-      window.prepareEditTask(id);
-      window.switchView('view-tambah', true);
+      if (typeof window.prepareEditTask === 'function') {
+        window.prepareEditTask(id);
+      }
+      if (typeof window.switchView === 'function') {
+        window.switchView('view-tambah', true);
+      }
     });
   });
 
-  // Tombol Hapus
   document.querySelectorAll('.delete-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.currentTarget.getAttribute('data-id');
@@ -130,12 +143,11 @@ function attachCheckboxEvents() {
   });
 }
 
-// Tutup dropdown jika klik sembarang tempat di luar menu
 document.addEventListener('click', () => {
   document.querySelectorAll('.task-dropdown').forEach(d => d.classList.remove('show'));
 });
 
-// 6. Filter Kategori
+// 6. Filter Kategori Chips
 function setupCategoryFilters() {
   document.querySelectorAll('.chip').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -147,4 +159,15 @@ function setupCategoryFilters() {
       renderApp();
     });
   });
+}
+
+// 7. Filter Dropdown Prioritas Baru
+function setupPriorityFilter() {
+  const prioritySelect = document.getElementById('priority-filter');
+  if (prioritySelect) {
+    prioritySelect.addEventListener('change', (e) => {
+      activePriority = e.target.value;
+      renderApp();
+    });
+  }
 }

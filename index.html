@@ -64,7 +64,13 @@
         <!-- DAFTAR TUGAS FOKUS -->
         <section class="task-section">
           <div class="section-header">
-            <h3>Fokus Hari Ini</h3>
+            <h3>Tugas Hari Ini</h3>
+            <select id="priority-filter" class="priority-select">
+              <option value="Semua">Semua Prioritas</option>
+              <option value="Santai">Santai</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Penting">Penting</option>
+            </select>
           </div>
           <div class="task-list" id="active-tasks-list"></div>
         </section>
