@@ -20,8 +20,19 @@ document.addEventListener('DOMContentLoaded', () => {
   setupPriorityFilter(); // Inisialisasi listener dropdown prioritas
 });
 
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 window.renderApp = function() {
-  const tasks = Storage.getTasks().filter(t => !t.archived);
+  const todayStr = getLocalDateString();
+  const tasks = Storage.getTasks().filter(t => {
+    const isToday = !t.date || t.date === todayStr;
+    return !t.archived && isToday;
+  });
   updateProgress(tasks);
   renderTasks(tasks);
 };
