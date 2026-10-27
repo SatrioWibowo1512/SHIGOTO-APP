@@ -280,3 +280,15 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* HIGHLIGHT TUGAS TERLEWAT */
+.task-card.overdue {
+  border-color: #fca5a5;
+  background-color: #fef2f2;
+}
+
+.tag-overdue {
+  background-color: #fee2e2;
+  color: #991b1b;
+  font-weight: 800;
+}

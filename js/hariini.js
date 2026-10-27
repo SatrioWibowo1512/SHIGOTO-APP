@@ -1,7 +1,19 @@
-let activeFilter = 'Semua';      // Filter Kategori (Semua, Tugas, Hobby, dll)
-let activePriority = 'Semua';    // Filter Prioritas (Semua, Santai, Sedang, Penting)
+let activeFilter = 'Semua';
+let activePriority = 'Semua';
 
-// 1. Format Tanggal
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+window.refreshAllViews = function() {
+  if (typeof window.renderApp === 'function') window.renderApp();
+  if (typeof window.renderCalendar === 'function') window.renderCalendar();
+  if (typeof window.renderCalendarTasks === 'function') window.renderCalendarTasks();
+};
+
 function renderDate() {
   const today = new Date();
   const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -17,15 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDate();
   renderApp();
   setupCategoryFilters();
-  setupPriorityFilter(); // Inisialisasi listener dropdown prioritas
+  setupPriorityFilter();
 });
-
-function getLocalDateString(d = new Date()) {
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
 
 window.renderApp = function() {
   const todayStr = getLocalDateString();
@@ -33,11 +38,11 @@ window.renderApp = function() {
     const isToday = !t.date || t.date === todayStr;
     return !t.archived && isToday;
   });
+
   updateProgress(tasks);
   renderTasks(tasks);
 };
 
-// 2. Update Progress Bar
 function updateProgress(tasks) {
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed).length;
@@ -52,7 +57,6 @@ function updateProgress(tasks) {
   if (fillEl) fillEl.style.width = `${percent}%`;
 }
 
-// 3. Render Daftar Tugas (Dua Filter: Kategori + Prioritas)
 function renderTasks(tasks) {
   const activeListContainer = document.getElementById('active-tasks-list');
   const completedListContainer = document.getElementById('completed-tasks-list');
@@ -77,21 +81,45 @@ function renderTasks(tasks) {
   attachCheckboxEvents();
 }
 
-// 4. Template Kartu Tugas
+// Helper Cek Tugas Terlewat
+function isTaskOverdue(task) {
+  if (task.completed || !task.date) return false;
+
+  const todayStr = getLocalDateString();
+  if (task.date < todayStr) return true;
+
+  if (task.date === todayStr && task.time) {
+    const now = new Date();
+    const currentMins = now.getHours() * 60 + now.getMinutes();
+    const timeClean = task.time.replace(' WIB', '').trim();
+    const [h, m] = timeClean.split(':').map(Number);
+    
+    if (!isNaN(h) && !isNaN(m)) {
+      const taskMins = h * 60 + m;
+      if (taskMins < currentMins) return true;
+    }
+  }
+
+  return false;
+}
+
+// Update fungsi createTaskHTML
 function createTaskHTML(task) {
+  const overdue = isTaskOverdue(task);
+
   return `
-    <div class="task-card ${task.completed ? 'completed' : ''}">
+    <div class="task-card ${task.completed ? 'completed' : ''} ${overdue ? 'overdue' : ''}">
       <input type="checkbox" class="task-checkbox" data-id="${task.id}" ${task.completed ? 'checked' : ''}>
       <div class="task-info">
         <p class="task-title">${task.title}</p>
         <div class="task-meta">
+          ${overdue ? `<span class="tag tag-overdue">Terlewat</span>` : ''}
           <span class="time-text">${task.time || ''}</span>
           <span class="tag tag-${task.category.toLowerCase()}">${task.category}</span>
           ${task.tag ? `<span class="tag tag-${task.tag.toLowerCase()}">${task.tag}</span>` : ''}
         </div>
       </div>
 
-      <!-- Menu Titik Tiga -->
       <div class="task-menu-container">
         <button class="task-menu-btn" data-id="${task.id}">⋮</button>
         <div class="task-dropdown" id="dropdown-${task.id}">
@@ -109,17 +137,16 @@ function createTaskHTML(task) {
   `;
 }
 
-// 5. Event Listener Checkbox, Edit & Delete
 function attachCheckboxEvents() {
-  document.querySelectorAll('.task-checkbox').forEach(cb => {
+  document.querySelectorAll('#view-hariini .task-checkbox').forEach(cb => {
     cb.addEventListener('change', (e) => {
       const id = e.target.getAttribute('data-id');
       Storage.toggleComplete(id);
-      renderApp();
+      window.refreshAllViews();
     });
   });
 
-  document.querySelectorAll('.task-menu-btn').forEach(btn => {
+  document.querySelectorAll('#view-hariini .task-menu-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const id = e.currentTarget.getAttribute('data-id');
@@ -133,7 +160,7 @@ function attachCheckboxEvents() {
     });
   });
 
-  document.querySelectorAll('.edit-btn').forEach(btn => {
+  document.querySelectorAll('#view-hariini .edit-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.currentTarget.getAttribute('data-id');
       if (typeof window.prepareEditTask === 'function') {
@@ -145,11 +172,11 @@ function attachCheckboxEvents() {
     });
   });
 
-  document.querySelectorAll('.delete-btn').forEach(btn => {
+  document.querySelectorAll('#view-hariini .delete-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.currentTarget.getAttribute('data-id');
       Storage.deleteTask(id);
-      renderApp();
+      window.refreshAllViews();
     });
   });
 }
@@ -158,7 +185,6 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.task-dropdown').forEach(d => d.classList.remove('show'));
 });
 
-// 6. Filter Kategori Chips
 function setupCategoryFilters() {
   document.querySelectorAll('.chip').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -172,7 +198,6 @@ function setupCategoryFilters() {
   });
 }
 
-// 7. Filter Dropdown Prioritas Baru
 function setupPriorityFilter() {
   const prioritySelect = document.getElementById('priority-filter');
   if (prioritySelect) {

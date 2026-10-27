@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/hariini.css">
   <link rel="stylesheet" href="css/kalender.css">
   <link rel="stylesheet" href="css/tambahtugas.css">
+  <link rel="stylesheet" href="css/template.css">
 </head>
 <body>
 
@@ -105,7 +106,7 @@
         <form id="task-form" class="form-container">
           <div class="form-group">
             <label for="task-title">Judul Tugas</label>
-            <input type="text" id="task-title" placeholder="Contoh: Belajar JavaScript" required>
+            <input type="text" id="task-title" placeholder="Contoh: Menyiram Tanaman" required>
           </div>
 
           <div class="form-group">
@@ -141,12 +142,80 @@
         </form>
       </main>
 
-      <!-- VIEW 3: TEMPLATE -->
+      <!-- VIEW 3: TEMPLATE TUGAS -->
       <main id="view-template" class="page-view">
-        <div style="padding: 24px; text-align: center; color: #64748b;">
-          <h3>Halaman Template</h3>
-          <p>Fitur template tugas akan segera hadir!</p>
-        </div>
+        <form id="template-form" class="form-container">
+          <div class="form-group">
+            <label for="template-title">Judul Tugas / Rutinitas</label>
+            <input type="text" id="template-title" placeholder="Contoh: Olahraga Pagi / Olah Data" required>
+          </div>
+
+          <div class="form-group">
+            <label for="template-category">Kategori</label>
+            <select id="template-category" required>
+              <option value="Tugas">Tugas</option>
+              <option value="Hobby">Hobby</option>
+              <option value="Latihan">Latihan</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="template-priority">Tingkat Prioritas</label>
+            <select id="template-priority" required>
+              <option value="Santai">Santai</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Penting">Penting</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="template-time">Waktu Selesai</label>
+            <input type="time" id="template-time" required>
+          </div>
+
+          <!-- TIPE PERULANGAN -->
+          <div class="form-group">
+            <label for="recurrence-type">Tipe Perulangan</label>
+            <select id="recurrence-type" required>
+              <option value="harian">Harian (Pilih Hari Bebas)</option>
+              <option value="mingguan">Mingguan (4x Sebulan)</option>
+              <option value="bulanan">Bulanan (12x Setahun)</option>
+            </select>
+          </div>
+
+          <!-- OPSI PILIHAN HARI (UNTUK HARIAN & MINGGUAN) -->
+          <div class="form-group" id="days-selector-group">
+            <label>Pilih Hari Rutin</label>
+            <div class="day-pills">
+              <label class="day-pill"><input type="checkbox" value="1"> <span>Sen</span></label>
+              <label class="day-pill"><input type="checkbox" value="2"> <span>Sel</span></label>
+              <label class="day-pill"><input type="checkbox" value="3"> <span>Rab</span></label>
+              <label class="day-pill"><input type="checkbox" value="4"> <span>Kam</span></label>
+              <label class="day-pill"><input type="checkbox" value="5"> <span>Jum</span></label>
+              <label class="day-pill"><input type="checkbox" value="6"> <span>Sab</span></label>
+              <label class="day-pill"><input type="checkbox" value="0"> <span>Min</span></label>
+            </div>
+          </div>
+
+          <!-- OPSI PILIHAN TANGGAL (KHUSUS BULANAN) -->
+          <div class="form-group" id="date-selector-group" style="display: none;">
+            <label for="monthly-date">Pilih Tanggal Setiap Bulan (1 - 31)</label>
+            <input type="number" id="monthly-date" min="1" max="31" value="1">
+          </div>
+
+          <!-- DURASI RENTANG (DURASI HARI UNTUK HARIAN) -->
+          <div class="form-group" id="duration-group">
+            <label for="repeat-duration">Rentang Hari ke Depan</label>
+            <select id="repeat-duration">
+              <option value="7">7 Hari Ke Depan</option>
+              <option value="14">14 Hari Ke Depan</option>
+              <option value="30">30 Hari Ke Depan</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn">Terapkan Rutinitas ke Jadwal</button>
+        </form>
       </main>
 
       <!-- VIEW 4: ARSIP -->
@@ -198,5 +267,6 @@
   <script src="js/kalender.js"></script>
   <script src="js/tambahtugas.js"></script>
   <script src="js/router.js"></script>
+  <script src="js/template.js"></script>
 </body>
 </html>
