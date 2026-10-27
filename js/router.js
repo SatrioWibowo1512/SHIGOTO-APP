@@ -1,5 +1,38 @@
 let currentIndex = 0;
 
+// HELPER GLOBAL UNTUK POP-UP MODAL KUSTOM
+window.showCustomModal = function({ title, message, showCancel = true, onConfirm }) {
+  const modal = document.getElementById('app-modal');
+  const titleEl = document.getElementById('modal-title');
+  const msgEl = document.getElementById('modal-message');
+  const cancelBtn = document.getElementById('modal-cancel-btn');
+  const confirmBtn = document.getElementById('modal-confirm-btn');
+
+  if (!modal) return;
+
+  titleEl.textContent = title || 'Informasi';
+  msgEl.textContent = message || '';
+  cancelBtn.style.display = showCancel ? 'block' : 'none';
+  confirmBtn.textContent = showCancel ? 'Ya, Lanjutkan' : 'OK';
+
+  modal.classList.add('show');
+
+  const close = () => {
+    modal.classList.remove('show');
+    cancelBtn.removeEventListener('click', handleCancel);
+    confirmBtn.removeEventListener('click', handleConfirm);
+  };
+
+  const handleCancel = () => close();
+  const handleConfirm = () => {
+    close();
+    if (typeof onConfirm === 'function') onConfirm();
+  };
+
+  cancelBtn.addEventListener('click', handleCancel);
+  confirmBtn.addEventListener('click', handleConfirm);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const navItems = document.querySelectorAll('.nav-item');
   const bottomNav = document.querySelector('.bottom-nav');

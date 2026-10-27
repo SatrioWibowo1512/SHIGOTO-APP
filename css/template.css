@@ -1,0 +1,188 @@
+/* TOMBOL WIDGET HEADER */
+.add-template-header-btn {
+  background-color: var(--primary-green-dark);
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(22, 101, 52, 0.2);
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.add-template-header-btn:active {
+  transform: scale(0.95);
+}
+
+/* HEADER FORM DENGAN JUDUL PAS DI TENGAH LAYAR */
+.form-header-nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px 10px 20px;
+}
+
+.form-header-nav h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+}
+
+.back-btn {
+  position: absolute;
+  left: 20px;
+  background-color: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #e2e8f0;
+}
+
+/* CONTAINER TEMPLATE TERSIMPAN */
+.templates-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.template-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 5px solid var(--primary-green-dark);
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(22, 101, 52, 0.08);
+  background-color: #f0fdf4;
+}
+
+.template-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.template-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.template-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tpl-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tpl-badge-type {
+  background-color: #dcfce7;
+  color: var(--primary-green-dark);
+}
+
+.tpl-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.delete-tpl-btn {
+  background: #fef2f2;
+  border: none;
+  color: #ef4444;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.delete-tpl-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.delete-tpl-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* OPSI PILIHAN HARI (DAY PILLS) */
+.day-pills {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.day-pill {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+.day-pill input {
+  display: none;
+}
+
+.day-pill span {
+  display: block;
+  padding: 10px 0;
+  background-color: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  transition: all 0.2s ease;
+}
+
+.day-pill input:checked + span {
+  background-color: var(--primary-green-dark);
+  color: #ffffff;
+  border-color: var(--primary-green-dark);
+  box-shadow: 0 4px 10px rgba(22, 101, 52, 0.2);
+}

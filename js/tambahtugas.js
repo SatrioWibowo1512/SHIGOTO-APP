@@ -75,5 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.resetFormTambah();
     window.switchView('view-hariini');
+
+    // POP-UP NOTIFIKASI KUSTOM
+    window.showCustomModal({
+      title: 'Tugas Tersimpan!',
+      message: 'Tugas baru berhasil ditambahkan ke jadwal kamu.',
+      showCancel: false,
+      onConfirm: () => {
+        window.switchView('view-hariini');
+      }
+    });
   });
 });

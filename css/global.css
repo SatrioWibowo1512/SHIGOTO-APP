@@ -11,9 +11,9 @@
   --text-title: #0f172a;
 }
 
-/* SEMBUNYIKAN BATANG SCROLLBAR DI SELURUH APLIKASI */
+/* SEMBUNYIKAN BATANG SCROLLBAR TAPI TETAP BISA DI-SCROLL */
 html, body, .app-container, .views-wrapper, .page-view {
-  -ms-overflow-style: none;  /* Internet Explorer & Edge */
+  -ms-overflow-style: none;  /* IE & Edge */
   scrollbar-width: none;  /* Firefox */
 }
 
@@ -34,37 +34,40 @@ body {
 .app-container {
   width: 100%;
   max-width: 480px;
-  min-height: 100vh;
+  height: 100vh; /* Kunci tinggi seukuran layar HP */
+  max-height: 100vh;
   background-color: var(--bg-main);
   position: relative;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
+/* WATERMARK LOGO REDUP & SANGAT HALUS */
 .app-container::before {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 220px;
-  height: 220px;
+  width: 180px;
+  height: 180px;
   background-image: url('../assets/logo.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  opacity: 0.1;
+  opacity: 0.1; /* Dibuat super tipis agar form terlihat bersih */
   pointer-events: none;
   z-index: 0;
 }
 
 /* HEADER BAR */
 .header-bar {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 90;
   height: 64px;
+  min-height: 64px;
   background: rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -100,25 +103,34 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* CONTAINER SLIDER VIEW */
+/* CONTAINER SLIDER VIEW (AKSES SCROLL VERTIKAL BEBAS) */
 .views-wrapper {
   position: relative;
   width: 100%;
   flex: 1;
   overflow-x: hidden;
+  overflow-y: auto; /* Memungkinkan konten di-scroll sampai paling bawah */
+  z-index: 1;
 }
 
 .page-view {
   display: none;
   width: 100%;
-  padding-bottom: 90px;
+  padding-bottom: 110px; /* Jarak ruang bawah agar tombol tidak tertutup Bottom Navbar */
+  min-height: 100%;
 }
 
 .page-view.active {
   display: block;
 }
 
-/* ANIMASI INTERAKTIF GESER 2 ARAH (GPU ACCELERATED & ABSOLUTE STACKING) */
+.empty-view-state {
+  padding: 40px 24px;
+  text-align: center;
+  color: #64748b;
+}
+
+/* ANIMASI GESER 2 ARAH (GPU ACCELERATED & ABSOLUTE STACKING) */
 .page-view.slide-left-out,
 .page-view.slide-right-in,
 .page-view.slide-right-out,
@@ -167,7 +179,7 @@ body {
   to { transform: translate3d(0, 0, 0); opacity: 1; }
 }
 
-/* BOTTOM NAVBAR & KAPSUL HIJAU GLIDE */
+/* BOTTOM NAVBAR & KAPSUL 5 MENU */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -195,6 +207,13 @@ body {
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.nav-pill-inner {
+  width: 100%;
+  height: 100%;
+  background-color: #dcfce7;
+  border-radius: 16px;
+}
+
 .bottom-nav[data-active="0"] .nav-pill { transform: translateX(0%); }
 .bottom-nav[data-active="1"] .nav-pill { transform: translateX(100%); }
 .bottom-nav[data-active="2"] .nav-pill { transform: translateX(200%); }
@@ -212,7 +231,7 @@ body {
   align-items: center;
   gap: 4px;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #94a3b8;
   width: 20%;
@@ -232,4 +251,83 @@ body {
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* MODAL POP-UP KUSTOM */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-card {
+  width: 85%;
+  max-width: 340px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+
+.modal-overlay.show .modal-card {
+  transform: scale(1);
+}
+
+.modal-card h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.modal-card p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #64748b;
+}
+
+.btn-primary {
+  background-color: var(--primary-green-dark);
+  color: #ffffff;
 }
