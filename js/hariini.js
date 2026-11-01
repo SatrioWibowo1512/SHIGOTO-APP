@@ -81,7 +81,7 @@ function renderTasks(tasks) {
   attachCheckboxEvents();
 }
 
-// Helper Cek Tugas Terlewat
+// CEK TUGAS TERLEWAT
 function isTaskOverdue(task) {
   if (task.completed || !task.date) return false;
 
@@ -103,7 +103,7 @@ function isTaskOverdue(task) {
   return false;
 }
 
-// Update fungsi createTaskHTML
+// LIHAT TUGAS HARI INI
 function createTaskHTML(task) {
   const overdue = isTaskOverdue(task);
 

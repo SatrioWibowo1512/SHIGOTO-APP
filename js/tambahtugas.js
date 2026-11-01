@@ -1,6 +1,6 @@
 window.editingTaskId = null;
 
-// Helper Tanggal Lokal YYYY-MM-DD
+// HELPER TANGGAL
 function getLocalDateString(d = new Date()) {
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -8,7 +8,7 @@ function getLocalDateString(d = new Date()) {
   return `${year}-${month}-${day}`;
 }
 
-// Reset Form ke Kondisi Awal (Tambah Baru)
+// KONDISI AWAL FORM
 window.resetFormTambah = function() {
   const taskForm = document.getElementById('task-form');
   if (taskForm) taskForm.reset();
@@ -22,7 +22,7 @@ window.resetFormTambah = function() {
   window.editingTaskId = null;
 };
 
-// Siapkan Form untuk Mode Edit Tugas
+// FORM EDIT TUGAS
 window.prepareEditTask = function(id) {
   const tasks = Storage.getTasks();
   const task = tasks.find(t => t.id === id);
@@ -37,7 +37,7 @@ window.prepareEditTask = function(id) {
   }
 };
 
-// Event Listener Submit Form Tambah / Edit
+// FORM TAMBAH TUGAS
 document.addEventListener('DOMContentLoaded', () => {
   window.resetFormTambah();
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.setSelectedCalendarDate(dateVal);
     }
 
-    // Refresh tampilan Hari Ini & Jadwal secara serentak
+    // REFRESH HARIINI DAN JADWAL
     if (typeof window.refreshAllViews === 'function') {
       window.refreshAllViews();
     }
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.resetFormTambah();
     window.switchView('view-hariini');
 
-    // POP-UP NOTIFIKASI KUSTOM
+    // POP UP
     window.showCustomModal({
       title: 'Tugas Tersimpan!',
       message: 'Tugas baru berhasil ditambahkan ke jadwal kamu.',

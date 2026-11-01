@@ -11,14 +11,13 @@
   --text-title: #0f172a;
 }
 
-/* SEMBUNYIKAN BATANG SCROLLBAR TAPI TETAP BISA DI-SCROLL */
 html, body, .app-container, .views-wrapper, .page-view {
   -ms-overflow-style: none;  /* IE & Edge */
   scrollbar-width: none;  /* Firefox */
 }
 
 ::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 body {
@@ -34,7 +33,7 @@ body {
 .app-container {
   width: 100%;
   max-width: 480px;
-  height: 100vh; /* Kunci tinggi seukuran layar HP */
+  height: 100vh;
   max-height: 100vh;
   background-color: var(--bg-main);
   position: relative;
@@ -44,7 +43,6 @@ body {
   overflow: hidden;
 }
 
-/* WATERMARK LOGO REDUP & SANGAT HALUS */
 .app-container::before {
   content: '';
   position: absolute;
@@ -57,12 +55,11 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  opacity: 0.1; /* Dibuat super tipis agar form terlihat bersih */
+  opacity: 0.1; 
   pointer-events: none;
   z-index: 0;
 }
 
-/* HEADER BAR */
 .header-bar {
   position: relative;
   z-index: 90;
@@ -103,20 +100,19 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* CONTAINER SLIDER VIEW (AKSES SCROLL VERTIKAL BEBAS) */
 .views-wrapper {
   position: relative;
   width: 100%;
   flex: 1;
   overflow-x: hidden;
-  overflow-y: auto; /* Memungkinkan konten di-scroll sampai paling bawah */
+  overflow-y: auto;
   z-index: 1;
 }
 
 .page-view {
   display: none;
   width: 100%;
-  padding-bottom: 110px; /* Jarak ruang bawah agar tombol tidak tertutup Bottom Navbar */
+  padding-bottom: 110px; 
   min-height: 100%;
 }
 
@@ -130,7 +126,6 @@ body {
   color: #64748b;
 }
 
-/* ANIMASI GESER 2 ARAH (GPU ACCELERATED & ABSOLUTE STACKING) */
 .page-view.slide-left-out,
 .page-view.slide-right-in,
 .page-view.slide-right-out,

@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Expose fungsi ganti tanggal ke window biar bisa dipanggil dari form tambah
+// EXPOSE GANTI TANGGAL
 window.setSelectedCalendarDate = function(dateStr) {
   if (dateStr) {
     selectedDateStr = dateStr;

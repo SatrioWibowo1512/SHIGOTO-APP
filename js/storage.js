@@ -2,7 +2,7 @@ const STORAGE_KEY = 'shigoto_tasks_data';
 const TEMPLATE_KEY = 'shigoto_templates_data';
 
 const Storage = {
-  // --- MANAJEMEN TUGAS ---
+  // MANAJEMEN TUGAS
   getTasks() {
     try {
       const data = localStorage.getItem(STORAGE_KEY);
@@ -39,7 +39,7 @@ const Storage = {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   },
 
-  // --- MANAJEMEN TEMPLATE ---
+  // MANAJEMEN TEMPLATE
   getTemplates() {
     try {
       const data = localStorage.getItem(TEMPLATE_KEY);

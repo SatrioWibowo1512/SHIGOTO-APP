@@ -1,6 +1,6 @@
 let currentIndex = 0;
 
-// HELPER GLOBAL UNTUK POP-UP MODAL KUSTOM
+// HELPER GLOBAL POP UP
 window.showCustomModal = function({ title, message, showCancel = true, onConfirm }) {
   const modal = document.getElementById('app-modal');
   const titleEl = document.getElementById('modal-title');
@@ -57,12 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentView = views[currentIndex];
     const isForward = targetIndex > currentIndex;
 
-    // Bersihkan class sebelumnya
+    // BERSIHKAN CLASS
     views.forEach(v => {
       v.className = 'page-view';
     });
 
-    // Jalankan animasi di frame render berikutnya biar gak ada jeda putih
+    // ANIMASI PINDAH HALAMAN
     requestAnimationFrame(() => {
       currentView.className = `page-view ${isForward ? 'slide-left-out' : 'slide-right-out'}`;
       targetView.className = `page-view active ${isForward ? 'slide-right-in' : 'slide-left-in'}`;

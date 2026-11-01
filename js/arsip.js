@@ -16,7 +16,7 @@ function getLocalDateString(d = new Date()) {
   return `${year}-${month}-${day}`;
 }
 
-// Cek status apakah tugas terlewat
+// CEK STATUS TERLEWAT
 function checkIsOverdue(task) {
   if (task.completed || !task.date) return false;
 
@@ -38,7 +38,7 @@ function checkIsOverdue(task) {
   return false;
 }
 
-// 1. STATISTIK PRODUKTIVITAS KESELURUHAN
+// STATISTIK PRODUKTIVITAS KESELURUHAN
 function renderOverallProgress() {
   if (typeof Storage === 'undefined' || typeof Storage.getTasks !== 'function') return;
 
@@ -59,7 +59,7 @@ function renderOverallProgress() {
   }
 }
 
-// 2. RENDER FOLDER BULAN (ACCORDION)
+// RENDER FOLDER BULAN
 function renderArchiveList() {
   const container = document.getElementById('archive-month-groups');
   if (!container) return;
@@ -68,7 +68,7 @@ function renderArchiveList() {
 
   const allTasks = Storage.getTasks();
 
-  // Ambil tugas yang SELESAI atau TERLEWAT
+  // AMBIL TUGAS SELESAI/TERLEWAT
   const archiveTasks = allTasks.filter(t => Boolean(t.completed) || checkIsOverdue(t));
 
   if (archiveTasks.length === 0) {
@@ -82,7 +82,7 @@ function renderArchiveList() {
   ];
   const dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 
-  // Kelompokkan Tugas: MonthKey -> DateKey -> Tasks
+  // KELOMPOKKAN TUGAS PERBULAN
   const grouped = {};
 
   archiveTasks.forEach(task => {
@@ -184,7 +184,7 @@ function renderArchiveList() {
 
   container.innerHTML = html;
 
-  // Event Klik Folder Bulan (Accordion Expand / Collapse)
+  // FOLDER BULAN
   container.querySelectorAll('.archive-month-header').forEach(header => {
     header.addEventListener('click', () => {
       const folder = header.closest('.archive-month-folder');
@@ -192,7 +192,7 @@ function renderArchiveList() {
     });
   });
 
-  // Event Hapus dari Arsip
+  // HAPUS ARSIP EVENT
   container.querySelectorAll('.delete-archive-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();

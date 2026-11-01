@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!templateForm) return;
 
-  // Render daftar template tersimpan awal
+  // RENDER AWAL
   if (typeof Storage !== 'undefined' && typeof Storage.getTemplates === 'function') {
     renderSavedTemplates();
   }
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Toggle Input Perulangan Form
+  // PERULANGAN JADWAL
   if (recurrenceType) {
     recurrenceType.addEventListener('change', () => {
       const val = recurrenceType.value;
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Submit Simpan Template Baru
+  // SIMPAN TEMPLATE
   templateForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     templateForm.reset();
 
-    // Kembali ke daftar template & tampilkan pop-up sukses
+    // POP UP
     if (formView) formView.style.display = 'none';
     if (listView) listView.style.display = 'block';
 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Render Daftar Template Tersimpan
+// RENDET TEMPLATE TERSIMPAN
 function renderSavedTemplates() {
   const container = document.getElementById('saved-templates-list');
   if (!container) return;
@@ -148,7 +148,7 @@ function renderSavedTemplates() {
     </div>
   `).join('');
 
-  // Event Klik Kartu Template -> Tampilkan Pop-up Konfirmasi Gunakan
+  // GUNAKAN TEMPLATE
   container.querySelectorAll('.template-card').forEach(card => {
     card.addEventListener('click', (e) => {
       if (e.target.closest('.delete-tpl-btn')) return;
@@ -171,7 +171,7 @@ function renderSavedTemplates() {
     });
   });
 
-  // Event Hapus Template -> Dengan Pop-up Konfirmasi
+  // HAPUS TEMPLATE
   container.querySelectorAll('.delete-tpl-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -197,7 +197,7 @@ function renderSavedTemplates() {
   });
 }
 
-// Generate Tugas Berdasarkan Template
+// GENERATE TUGAS TEMPLATE
 function applyTemplateTasks(tpl) {
   const targetDates = [];
   const today = new Date();

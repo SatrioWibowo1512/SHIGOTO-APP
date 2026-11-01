@@ -1,4 +1,3 @@
-/* Greeting */
 .user-greeting {
   padding: 5px 20px 15px 20px;
 }
@@ -58,8 +57,6 @@
   transition: width 0.3s ease;
 }
 
-/* Chips Kategori */
-/* Chips Kategori (Bisa di-scroll ke samping) */
 .categories-section {
   padding: 0 20px;
   margin-bottom: 20px;
@@ -68,14 +65,13 @@
 .chips-container {
   display: flex;
   gap: 10px;
-  overflow-x: auto; /* Mengaktifkan scroll horizontal */
+  overflow-x: auto;
   white-space: nowrap;
-  padding-bottom: 4px; /* Menjaga batas bawah tombol tidak terpotong */
-  -ms-overflow-style: none; /* Menyembunyikan batang scroll di IE/Edge */
-  scrollbar-width: none; /* Menyembunyikan batang scroll di Firefox */
+  padding-bottom: 4px;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
 }
 
-/* Menyembunyikan batang scroll di Chrome & Safari agar tampilan bersih */
 .chips-container::-webkit-scrollbar {
   display: none;
 }
@@ -89,7 +85,7 @@
   font-weight: 700;
   color: #334155;
   cursor: pointer;
-  flex-shrink: 0; /* Mencegah tombol mengkerut saat kategori bertambah */
+  flex-shrink: 0;
 }
 
 .chip.active {
@@ -183,7 +179,6 @@
   font-weight: 700;
 }
 
-/* Badges Tag Kategori */
 .tag {
   padding: 2px 8px;
   border-radius: 6px;
@@ -222,7 +217,6 @@
   color: #334155;
 }
 
-/* Dropdown Edit & Hapus */
 .task-dropdown {
   display: none;
   position: absolute;
@@ -281,7 +275,6 @@
   stroke-linejoin: round;
 }
 
-/* HIGHLIGHT TUGAS TERLEWAT */
 .task-card.overdue {
   border-color: #fca5a5;
   background-color: #fef2f2;
