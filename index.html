@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/kalender.css">
   <link rel="stylesheet" href="css/tambahtugas.css">
   <link rel="stylesheet" href="css/template.css">
+  <link rel="stylesheet" href="css/arsip.css">
 </head>
 <body>
 
@@ -237,10 +238,25 @@
 
       <!-- VIEW 4: ARSIP -->
       <main id="view-arsip" class="page-view">
-        <div style="padding: 24px; text-align: center; color: #64748b;">
-          <h3>Halaman Arsip</h3>
-          <p>Daftar tugas yang telah diarsipkan.</p>
-        </div>
+        <!-- STATISTIK KESELURUHAN -->
+        <section class="overall-card">
+          <div class="overall-header">
+            <span class="overall-title">Produktivitas Keseluruhan</span>
+            <span class="overall-percent" id="overall-percent-text">0%</span>
+          </div>
+          <div class="progress-bar-bg" style="margin: 10px 0;">
+            <div class="progress-bar-fill" id="overall-progress-bar" style="width: 0%;"></div>
+          </div>
+          <p class="overall-detail" id="overall-detail-text">0 dari 0 total tugas telah kamu selesaikan</p>
+        </section>
+
+        <!-- KELOMPOK RIWAYAT ARSIP PER BULAN -->
+        <section class="task-section">
+          <div class="section-header">
+            <h3>Riwayat Tugas</h3>
+          </div>
+          <div id="archive-month-groups" class="archive-groups-container"></div>
+        </section>
       </main>
 
     </div>
@@ -296,5 +312,6 @@
   <script src="js/tambahtugas.js"></script>
   <script src="js/router.js"></script>
   <script src="js/template.js"></script>
+  <script src="js/arsip.js"></script>
 </body>
 </html>

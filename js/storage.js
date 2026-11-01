@@ -15,7 +15,7 @@ const Storage = {
 
   saveTask(task) {
     const tasks = this.getTasks();
-    const index = tasks.findIndex(t => t.id === task.id);
+    const index = tasks.findIndex(t => String(t.id) === String(task.id));
     if (index > -1) {
       tasks[index] = task;
     } else {
@@ -26,7 +26,7 @@ const Storage = {
 
   toggleComplete(id) {
     const tasks = this.getTasks();
-    const task = tasks.find(t => t.id === id);
+    const task = tasks.find(t => String(t.id) === String(id));
     if (task) {
       task.completed = !task.completed;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
@@ -35,7 +35,7 @@ const Storage = {
 
   deleteTask(id) {
     let tasks = this.getTasks();
-    tasks = tasks.filter(t => t.id !== id);
+    tasks = tasks.filter(t => String(t.id) !== String(id));
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   },
 
@@ -58,7 +58,7 @@ const Storage = {
 
   deleteTemplate(id) {
     let templates = this.getTemplates();
-    templates = templates.filter(t => t.id !== id);
+    templates = templates.filter(t => String(t.id) !== String(id));
     localStorage.setItem(TEMPLATE_KEY, JSON.stringify(templates));
   }
 };
